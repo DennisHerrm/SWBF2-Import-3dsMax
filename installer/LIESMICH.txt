@@ -1,0 +1,36 @@
+SWBF2 Import fuer 3ds Max 2016-2027
+====================================
+
+Installieren
+  1. ZIP komplett entpacken.
+  2. 3ds Max schliessen.
+  3. Installieren.bat doppelklicken. Windows fragt nach Adminrechten
+     (Installation fuer alle Benutzer). Wer ablehnt, bekommt die
+     Installation nur fuer sich.
+  4. 3ds Max starten: Menue "EAfront Tool" und unter Datei - Importieren
+     "Star Wars Battlefront II".
+
+  Alternativ: SWBF2Import-<version>-Setup.exe aus dem Release verwenden.
+
+Voraussetzungen
+  - Windows 10/11, 64 Bit, 3ds Max 2016 bis 2027
+  - Star Wars Battlefront II (2017) installiert (das Plugin liest die
+    Spieldaten aus der eigenen Installation; es enthaelt keine)
+  - Visual C++-Laufzeit von Microsoft, Version 14.50 oder neuer:
+    https://aka.ms/vc14/vc_redist.x64.exe
+    (Installieren.bat meldet, wenn sie fehlt; die Setup.exe installiert sie)
+
+Deinstallieren
+  Deinstallieren.bat - oder bei der Setup.exe ueber
+  Windows-Einstellungen - Apps.
+
+Windows-Warnung ("Der Computer wurde durch Windows geschuetzt")
+  Die Dateien sind (noch) nicht digital signiert. Windows SmartScreen warnt
+  deshalb bei Programmen aus dem Internet, die es noch nicht kennt. Die
+  Pruefsummen (SHA256SUMS.txt) auf der Release-Seite zeigen, dass die Datei
+  unveraendert ist.
+
+Hinweis
+  Inoffizielles Fan-Projekt. Nicht verbunden mit Electronic Arts, DICE,
+  Lucasfilm oder Autodesk. Star Wars Battlefront II und 3ds Max sind Marken
+  ihrer jeweiligen Inhaber.
