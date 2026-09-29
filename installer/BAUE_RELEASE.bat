@@ -7,7 +7,7 @@ REM           ohne Angabe: output\ (von BUILD.bat)
 REM
 REM  Ergebnis in dist\:
 REM    SWBF2Import-<version>-Setup.exe   Installer (Inno Setup 6)
-REM    SWBF2Import-<version>.zip         Paket + Installieren.bat/Deinstallieren.bat
+REM    SWBF2Import-<version>.zip         Paket + Install.bat/Uninstall.bat/README.txt
 REM
 REM  Signieren (optional): ist SWBF2_SIGNTOOL gesetzt, wird damit jede .dlu und
 REM  die Setup.exe signiert, z. B.
@@ -89,9 +89,9 @@ if errorlevel 1 (echo FEHLER: Inno Setup & exit /b 1)
 if defined SWBF2_SIGNTOOL %SWBF2_SIGNTOOL% "%DIST%\SWBF2Import-%VER%-Setup.exe" || (echo FEHLER beim Signieren & exit /b 1)
 
 REM ---- ZIP ------------------------------------------------------------------
-copy /Y "%WURZEL%\installer\Installieren.bat" "%DIST%\paket\" >nul
-copy /Y "%WURZEL%\installer\Deinstallieren.bat" "%DIST%\paket\" >nul
-copy /Y "%WURZEL%\installer\LIESMICH.txt" "%DIST%\paket\" >nul
+copy /Y "%WURZEL%\installer\Install.bat" "%DIST%\paket\" >nul
+copy /Y "%WURZEL%\installer\Uninstall.bat" "%DIST%\paket\" >nul
+copy /Y "%WURZEL%\installer\README.txt" "%DIST%\paket\" >nul
 if exist "%DIST%\SWBF2Import-%VER%.zip" del "%DIST%\SWBF2Import-%VER%.zip"
 powershell -NoProfile -Command "Compress-Archive -Path '%DIST%\paket\*' -DestinationPath '%DIST%\SWBF2Import-%VER%.zip'"
 if errorlevel 1 (echo FEHLER: ZIP & exit /b 1)
