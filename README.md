@@ -46,9 +46,16 @@ you may link this program with the Autodesk 3ds Max SDK libraries and distribute
 the resulting plugin. Bundled third-party code keeps its own license
 (`vendor/`: lz4 BSD-2-Clause, miniz MIT, zstd BSD, bcdec MIT/Unlicense).
 
-**Disclaimer:** unofficial fan project, not affiliated with or endorsed by
-Electronic Arts, DICE, Lucasfilm/Disney or Autodesk. Star Wars Battlefront II
-and 3ds Max are trademarks of their respective owners.
+**Disclaimer:** unofficial, free fan project. It is **not** made by, affiliated
+with, endorsed or sponsored by **Lucasfilm Ltd.**, **The Walt Disney Company**,
+Electronic Arts, DICE or Autodesk. Star Wars is a trademark of Lucasfilm Ltd. /
+Disney; Star Wars Battlefront II belongs to Electronic Arts; 3ds Max is a
+trademark of Autodesk. All trademarks belong to their respective owners. No game
+data is included — the plugin reads the files of your own installation.
+
+*Hinweis: Inoffizielles, kostenloses Fan-Projekt — **nicht** von Lucasfilm,
+Disney, EA, DICE oder Autodesk und nicht mit ihnen verbunden. Alle Marken gehören
+ihren Inhabern. Es sind keine Spieldaten enthalten.*
 
 ---
 
