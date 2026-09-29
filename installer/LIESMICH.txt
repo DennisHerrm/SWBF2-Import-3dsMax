@@ -30,7 +30,15 @@ Windows-Warnung ("Der Computer wurde durch Windows geschuetzt")
   Pruefsummen (SHA256SUMS.txt) auf der Release-Seite zeigen, dass die Datei
   unveraendert ist.
 
-Hinweis
-  Inoffizielles Fan-Projekt. Nicht verbunden mit Electronic Arts, DICE,
-  Lucasfilm oder Autodesk. Star Wars Battlefront II und 3ds Max sind Marken
-  ihrer jeweiligen Inhaber.
+Hinweis / Disclaimer
+  Inoffizielles, kostenloses Fan-Projekt. Es stammt NICHT von Lucasfilm,
+  Disney, Electronic Arts, DICE oder Autodesk, ist nicht mit ihnen verbunden
+  und wird von ihnen weder unterstuetzt noch gesponsert. Star Wars ist eine
+  Marke von Lucasfilm Ltd. / The Walt Disney Company; Star Wars Battlefront II
+  gehoert Electronic Arts; 3ds Max ist eine Marke von Autodesk. Alle Marken
+  gehoeren ihren jeweiligen Inhabern. Das Plugin enthaelt keine Spieldaten.
+
+  Unofficial, free fan project. NOT made by, affiliated with, endorsed or
+  sponsored by Lucasfilm, Disney, Electronic Arts, DICE or Autodesk. Star Wars
+  is a trademark of Lucasfilm Ltd. / The Walt Disney Company; all trademarks
+  belong to their respective owners. No game data is included.

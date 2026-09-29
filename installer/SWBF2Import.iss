@@ -34,8 +34,8 @@ AppName=SWBF2 Import for 3ds Max
 AppVersion={#AppVer}
 AppVerName=SWBF2 Import {#AppVer} for 3ds Max
 AppPublisher=DH
-AppPublisherURL=https://github.com/DennisHerrm
-AppSupportURL=https://github.com/DennisHerrm
+AppPublisherURL=https://github.com/DennisHerrm/SWBF2-Import-3dsMax
+AppSupportURL=https://github.com/DennisHerrm/SWBF2-Import-3dsMax/issues
 VersionInfoVersion={#AppVer}.0
 VersionInfoProductVersion={#AppVer}.0
 VersionInfoDescription=SWBF2 Import for 3ds Max - Setup
@@ -61,6 +61,8 @@ UninstallDisplayName=SWBF2 Import {#AppVer} (3ds Max)
 UninstallDisplayIcon={sys}\shell32.dll,-16770
 CloseApplications=no
 SetupLogging=yes
+; Hinweis (inoffiziell, nicht von Lucasfilm/Disney/EA/Autodesk) vor der Installation zeigen
+InfoBeforeFile=HINWEIS_SETUP.txt
 
 [Languages]
 Name: "de"; MessagesFile: "compiler:Languages\German.isl"

@@ -1,0 +1,24 @@
+SWBF2 Import fuer 3ds Max 2016-2027
+
+HINWEIS
+Inoffizielles, kostenloses Fan-Projekt. Es stammt NICHT von Lucasfilm,
+Disney, Electronic Arts, DICE oder Autodesk, ist nicht mit ihnen verbunden
+und wird von ihnen weder unterstuetzt noch gesponsert. Star Wars ist eine
+Marke von Lucasfilm Ltd. / The Walt Disney Company, Star Wars Battlefront II
+gehoert Electronic Arts, 3ds Max ist eine Marke von Autodesk. Das Plugin
+enthaelt keine Spieldaten - es liest die Dateien deiner eigenen Installation.
+
+DISCLAIMER
+Unofficial, free fan project. NOT made by, affiliated with, endorsed or
+sponsored by Lucasfilm, Disney, Electronic Arts, DICE or Autodesk. Star Wars
+is a trademark of Lucasfilm Ltd. / The Walt Disney Company; Star Wars
+Battlefront II belongs to Electronic Arts; 3ds Max is a trademark of
+Autodesk. No game data is included.
+
+Voraussetzungen / Requirements
+- Windows 10/11 64 Bit, 3ds Max 2016-2027
+- Star Wars Battlefront II (2017) installiert / installed
+- 3ds Max vor der Installation schliessen / close 3ds Max first
+
+Lizenz / License: GPL-3.0 (siehe/see LICENSE auf GitHub)
+https://github.com/DennisHerrm/SWBF2-Import-3dsMax
