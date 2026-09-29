@@ -61,12 +61,13 @@ UninstallDisplayName=SWBF2 Import {#AppVer} (3ds Max)
 UninstallDisplayIcon={sys}\shell32.dll,-16770
 CloseApplications=no
 SetupLogging=yes
-; Hinweis (inoffiziell, nicht von Lucasfilm/Disney/EA/Autodesk) vor der Installation zeigen
-InfoBeforeFile=HINWEIS_SETUP.txt
+; Disclaimer (unofficial, not by Lucasfilm/Disney/EA/Autodesk) shown before installing
+InfoBeforeFile=SETUP_NOTICE.txt
 
 [Languages]
-Name: "de"; MessagesFile: "compiler:Languages\German.isl"
+; English first = fallback when the Windows language is neither English nor German
 Name: "en"; MessagesFile: "compiler:Default.isl"
+Name: "de"; MessagesFile: "compiler:Languages\German.isl"
 
 [CustomMessages]
 de.MaxLaeuft=3ds Max läuft noch und hält die alte Plugin-Datei fest.%n%nBitte alle 3ds-Max-Fenster schließen und dann auf „Wiederholen“ klicken.

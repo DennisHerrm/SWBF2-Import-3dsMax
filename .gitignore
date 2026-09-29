@@ -13,8 +13,10 @@ installer/redist/
 # Das Paket bekommt seinen Inhalt beim Bauen (Plugins + Skripte aus scripts/)
 package/SWBF2Import/Contents/
 
-# Interne Arbeitsnotizen
+# Interne Arbeitsnotizen (deutsch, nur lokal) - oeffentlich: docs/DEVELOPMENT.md
 HANDOUT.md
+ENTWICKLUNG.md
+CODING.md
 
 # Ablage/Daten aus dem Spiel nie einchecken
 *.fbmodel

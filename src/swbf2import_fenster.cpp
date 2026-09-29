@@ -99,7 +99,7 @@ std::wstring Ordnerteil(const std::string& name) {
 }
 
 // Eine Nachkommastelle mit PUNKT - fuers Protokoll, unabhaengig davon, auf
-// welche Region Max die C-Laufzeit gestellt hat (CODING.md Abschnitt 8).
+// welche Region Max die C-Laufzeit gestellt hat (docs/DEVELOPMENT.md, "Decimal comma").
 std::string ZehntelPunkt(double x) {
     const long long z = std::llround(x * 10.0);
     return std::to_string(z / 10) + "." + std::to_string(std::llabs(z % 10));

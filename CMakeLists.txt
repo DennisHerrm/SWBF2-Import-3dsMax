@@ -43,7 +43,7 @@ endif()
 # was Max anlegt und das Plugin freigibt, muss aus demselben kommen.
 set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreadedDLL")
 
-# ---- Haertung (CODING.md Abschnitt 17) -----------------------------------
+# ---- Haertung (docs/DEVELOPMENT.md, "Rules for plugin code") -----------------------------------
 # /guard:cf  Control Flow Guard: Ziele indirekter Aufrufe werden geprueft.
 #            Braucht den Schalter beim Uebersetzen UND beim Binden.
 # _MSVC_STL_HARDENING=1  seit VS 2022 17.14: bestimmte undefinierte Zugriffe
