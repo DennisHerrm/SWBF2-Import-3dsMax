@@ -1,0 +1,9 @@
+; Kein LIBRARY-Eintrag: der Name stuende sonst im Widerspruch zur Endung
+; .dlu und der Binder meldet LNK4070. Die Exportliste allein genuegt.
+EXPORTS
+    LibDescription       @1
+    LibNumberClasses     @2
+    LibClassDesc         @3
+    LibVersion           @4
+    CanAutoDefer         @5
+    LibInitialize        @6

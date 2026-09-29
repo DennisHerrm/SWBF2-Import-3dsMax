@@ -1,0 +1,23 @@
+# Build-Ergebnisse (BUILD.bat / START.bat) - jederzeit neu erzeugbar
+build_*/
+build_tool/
+output/
+*.pdb
+*.pdb.alt*
+*.log
+
+# Release (installer\BAUE_RELEASE.bat) - gehoert auf die Release-Seite, nicht ins Repo
+dist/
+installer/redist/
+
+# Das Paket bekommt seinen Inhalt beim Bauen (Plugins + Skripte aus scripts/)
+package/SWBF2Import/Contents/
+
+# Interne Arbeitsnotizen
+HANDOUT.md
+
+# Ablage/Daten aus dem Spiel nie einchecken
+*.fbmodel
+*.fbanim
+*.fbidx
+*.fbclips

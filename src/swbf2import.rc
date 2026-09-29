@@ -1,0 +1,101 @@
+// ============================================================
+//  swbf2import.rc - das Figurenfenster.
+//
+//  Masse in Dialogeinheiten (DLU), damit alles mit Schrift und
+//  Anzeigeskalierung mitwaechst. Abstaende nach Microsofts
+//  Layoutregeln: Rand 7, verwandte Elemente 4, unverwandte 7,
+//  Beschriftung zum Feld 3 (CODING.md Abschnitt 18).
+//  Nur ASCII - rc.exe und windres lesen es dann gleich.
+// ============================================================
+#include <windows.h>
+#include "swbf2import_res.h"
+
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+
+IDD_FIGUREN DIALOGEX 0, 0, 440, 306
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_THICKFRAME | WS_CLIPCHILDREN
+EXSTYLE WS_EX_CONTROLPARENT
+CAPTION "SWBF2 Import"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    LTEXT           "Game folder", IDC_ORDNER_LABEL, 7, 10, 44, 8
+    LTEXT           "", IDC_ORDNER, 54, 10, 316, 8, SS_PATHELLIPSIS | SS_NOPREFIX
+    PUSHBUTTON      "Browse...", IDC_DURCHSUCHEN, 376, 6, 57, 15, BS_OWNERDRAW | WS_TABSTOP
+    CONTROL         "", IDC_FORTSCHRITT, "Static", SS_OWNERDRAW, 7, 26, 426, 16
+
+    PUSHBUTTON      "Heroes", IDC_TAB0, 7, 48, 66, 15, BS_OWNERDRAW | WS_TABSTOP | WS_GROUP
+    PUSHBUTTON      "Light side", IDC_TAB1, 77, 48, 66, 15, BS_OWNERDRAW | WS_TABSTOP
+    PUSHBUTTON      "Dark side", IDC_TAB2, 147, 48, 66, 15, BS_OWNERDRAW | WS_TABSTOP
+    PUSHBUTTON      "Other", IDC_TAB3, 217, 48, 66, 15, BS_OWNERDRAW | WS_TABSTOP
+    PUSHBUTTON      "Vehicles", IDC_TAB4, 287, 48, 66, 15, BS_OWNERDRAW | WS_TABSTOP
+    PUSHBUTTON      "All", IDC_TAB5, 357, 48, 66, 15, BS_OWNERDRAW | WS_TABSTOP
+    PUSHBUTTON      "1st person", IDC_ERSTEPERSON, 376, 68, 57, 15, BS_OWNERDRAW | WS_TABSTOP
+
+    LTEXT           "Search", IDC_SUCHE_LABEL, 7, 71, 30, 8
+    EDITTEXT        IDC_SUCHE, 40, 68, 254, 14, ES_AUTOHSCROLL | WS_TABSTOP | NOT WS_BORDER
+    RTEXT           "", IDC_ANZAHL, 298, 71, 72, 8
+
+    LISTBOX         IDC_LISTE, 7, 88, 426, 166, LBS_OWNERDRAWFIXED | LBS_NODATA | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP | NOT WS_BORDER
+    LTEXT           "", IDC_DETAIL, 7, 258, 426, 8, SS_NOPREFIX | SS_ENDELLIPSIS
+
+    LTEXT           "", IDC_FUSS, 7, 287, 296, 8, SS_NOPREFIX | SS_ENDELLIPSIS
+    PUSHBUTTON      "Import", IDOK, 313, 283, 58, 16, BS_OWNERDRAW | WS_TABSTOP
+    PUSHBUTTON      "Close", IDCANCEL, 375, 283, 58, 16, BS_OWNERDRAW | WS_TABSTOP
+END
+
+// Dateifassung: sichtbar unter Eigenschaften -> Details der .dlu und fuer die
+// Diagnose im MacroScript (welche SWBF2Import.dlu ist wirklich geladen?).
+IDD_ANIMATIONEN DIALOGEX 0, 0, 440, 314
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU | WS_CLIPCHILDREN
+EXSTYLE WS_EX_CONTROLPARENT
+CAPTION "SWBF2 Animations"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    LTEXT           "Character", -1, 8, 10, 38, 10
+    COMBOBOX        IDC_A_FIGUR, 48, 8, 140, 220, CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Search", -1, 198, 10, 26, 10
+    EDITTEXT        IDC_A_SUCHE, 226, 9, 130, 11, ES_AUTOHSCROLL | NOT WS_BORDER
+    PUSHBUTTON      "Loadable only", IDC_A_NUR, 364, 7, 68, 15, BS_OWNERDRAW | WS_TABSTOP
+    CONTROL         "", IDC_A_KOPF, "Static", SS_OWNERDRAW, 8, 28, 424, 12
+    LISTBOX         IDC_A_LISTE, 8, 41, 424, 192, LBS_OWNERDRAWFIXED | LBS_NODATA | LBS_NOTIFY | LBS_NOINTEGRALHEIGHT | WS_VSCROLL | WS_TABSTOP | NOT WS_BORDER
+    CONTROL         "", IDC_A_STATUS, "Static", SS_OWNERDRAW, 8, 238, 424, 16
+    LTEXT           "Rig", -1, 8, 264, 16, 10
+    COMBOBOX        IDC_A_RIG, 26, 262, 118, 220, CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Sequence", -1, 152, 264, 36, 10
+    COMBOBOX        IDC_A_SEQUENZ, 190, 262, 242, 220, CBS_DROPDOWNLIST | CBS_OWNERDRAWFIXED | CBS_HASSTRINGS | WS_VSCROLL | WS_TABSTOP
+    LTEXT           "Gap", -1, 8, 291, 18, 10
+    EDITTEXT        IDC_A_ABSTAND, 28, 290, 22, 11, ES_NUMBER | NOT WS_BORDER
+    LTEXT           "frames", -1, 54, 291, 26, 10
+    PUSHBUTTON      "Note track", IDC_A_NOTIZ, 84, 288, 58, 15, BS_OWNERDRAW | WS_TABSTOP
+    PUSHBUTTON      "Load all to timeline", IDC_A_ALLE, 148, 288, 104, 15, BS_OWNERDRAW | WS_TABSTOP
+    PUSHBUTTON      "Load", IDC_A_LADEN, 312, 288, 58, 15, BS_OWNERDRAW | WS_TABSTOP
+    PUSHBUTTON      "Close", IDCANCEL, 374, 288, 58, 15, BS_OWNERDRAW | WS_TABSTOP
+END
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,43,0,0
+ PRODUCTVERSION 1,43,0,0
+ FILEFLAGSMASK 0x3fL
+ FILEFLAGS 0x0L
+ FILEOS VOS_NT_WINDOWS32
+ FILETYPE VFT_DLL
+ FILESUBTYPE VFT2_UNKNOWN
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904b0"
+        BEGIN
+            VALUE "CompanyName", "DH"
+            VALUE "FileDescription", "SWBF2 Import - Star Wars Battlefront II (2017) for 3ds Max"
+            VALUE "FileVersion", "1.43.0"
+            VALUE "InternalName", "SWBF2Import"
+            VALUE "OriginalFilename", "SWBF2Import.dlu"
+            VALUE "ProductName", "SWBF2 Import"
+            VALUE "ProductVersion", "1.43.0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
