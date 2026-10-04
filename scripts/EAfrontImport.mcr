@@ -23,7 +23,7 @@ macroScript EAfrontImport_Open
 (
     on execute do
     (
-        local sErwartet = "1.43.0"
+        local sErwartet = "1.44.0"
         -- Die Schnittstelle zuerst ueber ihren globalen Namen, sonst ueber die
         -- Liste aller Kerninterfaces. Der zweite Weg haengt nicht daran, dass
         -- MAXScript fuer das Interface einen globalen Namen angelegt hat -

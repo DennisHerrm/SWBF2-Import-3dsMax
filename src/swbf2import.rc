@@ -73,8 +73,8 @@ BEGIN
 END
 
 VS_VERSION_INFO VERSIONINFO
- FILEVERSION 1,43,0,0
- PRODUCTVERSION 1,43,0,0
+ FILEVERSION 1,44,0,0
+ PRODUCTVERSION 1,44,0,0
  FILEFLAGSMASK 0x3fL
  FILEFLAGS 0x0L
  FILEOS VOS_NT_WINDOWS32
@@ -87,11 +87,11 @@ BEGIN
         BEGIN
             VALUE "CompanyName", "DH"
             VALUE "FileDescription", "SWBF2 Import - Star Wars Battlefront II (2017) for 3ds Max"
-            VALUE "FileVersion", "1.43.0"
+            VALUE "FileVersion", "1.44.0"
             VALUE "InternalName", "SWBF2Import"
             VALUE "OriginalFilename", "SWBF2Import.dlu"
             VALUE "ProductName", "SWBF2 Import"
-            VALUE "ProductVersion", "1.43.0"
+            VALUE "ProductVersion", "1.44.0"
         END
     END
     BLOCK "VarFileInfo"

@@ -154,3 +154,9 @@ plugins:
 - Version 1.43.0 was tested in 3ds Max 2025. The test imported one
   representative of every hero, all 97 vehicles and pilots, and every soldier
   class of each era and side, then loaded all of their animations.
+- Version 1.44.0 fixes DCT-compressed clips (about 4,000 clips, for example
+  Darth Vader's backwards run): they jumped every 8 frames because the
+  decoder used half the weight for DCT coefficients 1-7. Checked with
+  `castool --clipcheck` over all clips (the new "Blockgrenze" value is the
+  step at block boundaries divided by the step inside a block, 1 = smooth)
+  and in 3ds Max 2027.

@@ -18,7 +18,7 @@
 ; ============================================================================
 
 #ifndef AppVer
-  #define AppVer "1.43.0"
+  #define AppVer "1.44.0"
 #endif
 #ifndef PaketDir
   #define PaketDir "..\dist\paket\SWBF2Import"

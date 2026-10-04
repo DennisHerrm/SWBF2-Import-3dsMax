@@ -5,11 +5,11 @@
     ProductType="Application"
     Name="SWBF2Import"
     Description="Star Wars Battlefront II (2017) Importer"
-    AppVersion="1.43.0"
-    FriendlyVersion="1.43.0"
+    AppVersion="1.44.0"
+    FriendlyVersion="1.44.0"
     Author="DH"
     UpgradeCode="{7C41A9E2-58D6-4B13-8F0A-2D97E5C4B681}"
-    ProductCode="{38375972-E53F-4D09-92DD-1CDAB75CBE19}">
+    ProductCode="{FC886CC2-6440-4E08-981D-57BA71B624D8}">
 
     <!-- UpgradeCode ist die dauerhafte Kennung und darf sich NIE aendern -
          Max laedt nur ein Paket je UpgradeCode. ProductCode dagegen bei
@@ -26,84 +26,84 @@
 
     <Components Description="plugins parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2016" SeriesMax="2016" />
-        <ComponentEntry AppName="SWBF2Import" Version="1.43.0"
+        <ComponentEntry AppName="SWBF2Import" Version="1.44.0"
                         ModuleName="./Contents/2016/SWBF2Import.dlu"
                         AppDescription="SWBF2 Importer (Figurenfenster und .fbmodel)" />
     </Components>
 
     <Components Description="plugins parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2017" SeriesMax="2017" />
-        <ComponentEntry AppName="SWBF2Import" Version="1.43.0"
+        <ComponentEntry AppName="SWBF2Import" Version="1.44.0"
                         ModuleName="./Contents/2017/SWBF2Import.dlu"
                         AppDescription="SWBF2 Importer (Figurenfenster und .fbmodel)" />
     </Components>
 
     <Components Description="plugins parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2018" SeriesMax="2018" />
-        <ComponentEntry AppName="SWBF2Import" Version="1.43.0"
+        <ComponentEntry AppName="SWBF2Import" Version="1.44.0"
                         ModuleName="./Contents/2018/SWBF2Import.dlu"
                         AppDescription="SWBF2 Importer (Figurenfenster und .fbmodel)" />
     </Components>
 
     <Components Description="plugins parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2019" SeriesMax="2019" />
-        <ComponentEntry AppName="SWBF2Import" Version="1.43.0"
+        <ComponentEntry AppName="SWBF2Import" Version="1.44.0"
                         ModuleName="./Contents/2019/SWBF2Import.dlu"
                         AppDescription="SWBF2 Importer (Figurenfenster und .fbmodel)" />
     </Components>
 
     <Components Description="plugins parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2020" SeriesMax="2020" />
-        <ComponentEntry AppName="SWBF2Import" Version="1.43.0"
+        <ComponentEntry AppName="SWBF2Import" Version="1.44.0"
                         ModuleName="./Contents/2020/SWBF2Import.dlu"
                         AppDescription="SWBF2 Importer (Figurenfenster und .fbmodel)" />
     </Components>
 
     <Components Description="plugins parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2021" SeriesMax="2021" />
-        <ComponentEntry AppName="SWBF2Import" Version="1.43.0"
+        <ComponentEntry AppName="SWBF2Import" Version="1.44.0"
                         ModuleName="./Contents/2021/SWBF2Import.dlu"
                         AppDescription="SWBF2 Importer (Figurenfenster und .fbmodel)" />
     </Components>
 
     <Components Description="plugins parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2022" SeriesMax="2022" />
-        <ComponentEntry AppName="SWBF2Import" Version="1.43.0"
+        <ComponentEntry AppName="SWBF2Import" Version="1.44.0"
                         ModuleName="./Contents/2022/SWBF2Import.dlu"
                         AppDescription="SWBF2 Importer (Figurenfenster und .fbmodel)" />
     </Components>
 
     <Components Description="plugins parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2023" SeriesMax="2023" />
-        <ComponentEntry AppName="SWBF2Import" Version="1.43.0"
+        <ComponentEntry AppName="SWBF2Import" Version="1.44.0"
                         ModuleName="./Contents/2023/SWBF2Import.dlu"
                         AppDescription="SWBF2 Importer (Figurenfenster und .fbmodel)" />
     </Components>
 
     <Components Description="plugins parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2024" SeriesMax="2024" />
-        <ComponentEntry AppName="SWBF2Import" Version="1.43.0"
+        <ComponentEntry AppName="SWBF2Import" Version="1.44.0"
                         ModuleName="./Contents/2024/SWBF2Import.dlu"
                         AppDescription="SWBF2 Importer (Figurenfenster und .fbmodel)" />
     </Components>
 
     <Components Description="plugins parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2025" SeriesMax="2025" />
-        <ComponentEntry AppName="SWBF2Import" Version="1.43.0"
+        <ComponentEntry AppName="SWBF2Import" Version="1.44.0"
                         ModuleName="./Contents/2025/SWBF2Import.dlu"
                         AppDescription="SWBF2 Importer (Figurenfenster und .fbmodel)" />
     </Components>
 
     <Components Description="plugins parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2026" SeriesMax="2026" />
-        <ComponentEntry AppName="SWBF2Import" Version="1.43.0"
+        <ComponentEntry AppName="SWBF2Import" Version="1.44.0"
                         ModuleName="./Contents/2026/SWBF2Import.dlu"
                         AppDescription="SWBF2 Importer (Figurenfenster und .fbmodel)" />
     </Components>
 
     <Components Description="plugins parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2027" SeriesMax="2027" />
-        <ComponentEntry AppName="SWBF2Import" Version="1.43.0"
+        <ComponentEntry AppName="SWBF2Import" Version="1.44.0"
                         ModuleName="./Contents/2027/SWBF2Import.dlu"
                         AppDescription="SWBF2 Importer (Figurenfenster und .fbmodel)" />
     </Components>
@@ -120,14 +120,14 @@
 
     <Components Description="macroscripts parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2016" SeriesMax="2027" />
-        <ComponentEntry AppName="EAfrontImportMacro" Version="1.43.0"
+        <ComponentEntry AppName="EAfrontImportMacro" Version="1.44.0"
                         ModuleName="./Contents/MacroScripts/EAfrontImport.mcr"
                         AppDescription="Menuebefehl SWBF2 importieren" />
     </Components>
 
     <Components Description="post-start-up scripts parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2016" SeriesMax="2024" />
-        <ComponentEntry AppName="EAfrontMenuLegacy" Version="1.43.0"
+        <ComponentEntry AppName="EAfrontMenuLegacy" Version="1.44.0"
                         ModuleName="./Contents/Post-Start-Up_Scripts/EAfrontMenu_2016_2024.ms"
                         AppDescription="Menue EAfront Tool (menuMan, bis 2024)" />
     </Components>
@@ -137,7 +137,7 @@
          erst danach (Startup Scripts, Schritt 3 gegen Schritt 5). -->
     <Components Description="pre-start-up scripts parts">
         <RuntimeRequirements OS="Win64" Platform="3ds Max" SeriesMin="2025" SeriesMax="2027" />
-        <ComponentEntry AppName="EAfrontMenu" Version="1.43.0"
+        <ComponentEntry AppName="EAfrontMenu" Version="1.44.0"
                         ModuleName="./Contents/Pre-Start-Up_Scripts/EAfrontMenu_2025_2027.ms"
                         AppDescription="Menue EAfront Tool (CuiMenuManager, ab 2025)" />
     </Components>
