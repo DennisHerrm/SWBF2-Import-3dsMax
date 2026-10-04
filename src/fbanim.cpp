@@ -187,6 +187,8 @@ const std::pair<std::vector<std::string>, std::string>& Quelle::RigNamen(size_t 
 //  Quantisierer fuer Drehung/Trajektorie/Verschiebung; DCT-Bloecke lesen im
 //  ersten Block den Koeffizienten 0 nicht (er ist der Grundwert), Breite 15
 //  bedeutet CatchAllBitCount. Kein Code uebernommen - nur diese Fakten.
+//  1.44.0: DCT-Basis fuer i > 0 ist 0,5*cos (nicht 0,25*cos), Koeffizient 0
+//  plus Grundwert laeuft wie im Spiel in 16 Bit ueber (Quelle wie oben).
 // ============================================================
 namespace {
 
@@ -207,10 +209,14 @@ std::vector<uint8_t> Bytes1(const fbgd::Felder& f, const char* n) {
 }
 
 // Basisfunktion der Blocktransformation (8 Keys): Gewicht von Koeffizient i
-// fuer Key t. dc = Gewicht des Koeffizienten 0 (VBR 1/8, DCT 1/4).
-double Basis(int t, int i, double dc) {
+// fuer Key t. dc = Gewicht des Koeffizienten 0 (VBR 1/8, DCT 1/4), ac = Gewicht
+// der uebrigen (VBR 1/4, DCT 1/2).
+// 1.44.0: DCT mit ac 1/4 halbierte die Bewegung innerhalb jedes 8er-Blocks;
+// am naechsten Block sprang die Kurve auf dessen Grundwert (Vader Run_Bwd:
+// Becken springt alle 8 Bilder, 70 von 87 DCT-Clips Vaders betroffen).
+double Basis(int t, int i, double dc, double ac = 0.25) {
     if (i == 0) return dc;
-    return 0.25 * std::cos(3.14159265358979323846 * (2.0 * t + 1.0) * i / 16.0);
+    return ac * std::cos(3.14159265358979323846 * (2.0 * t + 1.0) * i / 16.0);
 }
 
 char ArtAusName(const std::string& n) {
@@ -542,8 +548,10 @@ bool DctLesen(const fbgd::Datensatz& ds, const std::vector<std::string>& namen, 
             const int n = static_cast<int>((desc[i] >> 4) & 15);
             for (int j = (b == 0 ? 1 : 0); j < n; ++j)
                 for (int comp = 0; comp < 4; ++comp) k2[static_cast<size_t>(j)][static_cast<size_t>(comp)] = static_cast<double>(r.Vz(breite(erster[i] + static_cast<size_t>(j), comp)));
-            k2[0][0] += static_cast<double>(bx[i]); k2[0][1] += static_cast<double>(by[i]);
-            k2[0][2] += static_cast<double>(bz[i]); k2[0][3] += static_cast<double>(bw[i]);
+            // Koeffizient 0 + Grundwert in 16 Bit, wie im Spiel gespeichert
+            const long long basis[4] = { bx[i], by[i], bz[i], bw[i] };
+            for (size_t comp = 0; comp < 4; ++comp)
+                k2[0][comp] = static_cast<double>(static_cast<int16_t>(static_cast<uint16_t>(static_cast<long long>(k2[0][comp]) + basis[comp])));
         }
     if (r.ueber) { fehler = "DCT-Daten zu kurz"; return false; }
     aus.zeiten.clear();
@@ -552,7 +560,7 @@ bool DctLesen(const fbgd::Datensatz& ds, const std::vector<std::string>& namen, 
         const int b = key / 8, t = key % 8;
         const auto& k2 = koef[static_cast<size_t>(b) * dofs + dof];
         double s = 0;
-        for (int i = 0; i < 8; ++i) s += k2[static_cast<size_t>(i)][static_cast<size_t>(comp)] * Basis(t, i, 0.25) * ((qms * 0.1 * i + 1.0) / qmb);
+        for (int i = 0; i < 8; ++i) s += k2[static_cast<size_t>(i)][static_cast<size_t>(comp)] * Basis(t, i, 0.25, 0.5) * ((qms * 0.1 * i + 1.0) / qmb);
         return s;
     };
     std::set<std::string> vergeben;

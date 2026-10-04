@@ -149,6 +149,26 @@ int ClipCheck(int argc, char** argv) {
                 }
             }
         }
+        // Blockgrenzen: mittlerer Schritt an Key 8, 16, ... gegen den mittleren
+        // Schritt im Block, je bewegter Spur; Median ueber die Spuren (1 = glatt).
+        double grenze = 0.0;
+        {
+            std::vector<double> verh;
+            for (const fbanim::Kanal& kn : c.kanaele) {
+                if (kn.konstant || kn.komponenten < 1) continue;
+                const size_t kz = static_cast<size_t>(kn.komponenten), n = kn.werte.size() / kz;
+                if (n < 17) continue;
+                double sg = 0, si = 0; size_t ng = 0, ni = 0;
+                for (size_t j = 1; j < n; ++j) {
+                    double d = 0;
+                    for (size_t cc = 0; cc < kz; ++cc) d += std::fabs(double(kn.werte[j * kz + cc]) - kn.werte[(j - 1) * kz + cc]);
+                    if (j % 8 == 0) { sg += d; ++ng; } else { si += d; ++ni; }
+                }
+                if (ng == 0 || ni == 0 || si <= 1e-9) continue;
+                verh.push_back((sg / static_cast<double>(ng)) / (si / static_cast<double>(ni)));
+            }
+            if (!verh.empty()) { std::sort(verh.begin(), verh.end()); grenze = verh[verh.size() / 2]; }
+        }
         std::sort(spruenge.begin(), spruenge.end(), [](const Sprung& a, const Sprung& b) { return a.grad > b.grad; });
         // Verdaechtig: ein Schritt von mehr als 30 Grad UND mehr als das Zehnfache des Medians dieser Spur.
         size_t ausreisser = 0;
@@ -158,9 +178,9 @@ int ClipCheck(int argc, char** argv) {
         const bool schlecht = nan > 0 || normFehler > 0.02 || ausreisser > 0 || zeitFehler > 0 || unbenannt > 0;
         if (schlecht) ++verdaechtig;
         if (schlecht || alle) {
-            std::printf("CLIP %-60s %-5s additiv %d  Keys %4zu  fps %4.0f  Kanaele %3zu  NaN %zu  Norm %.4f  Zeitfehler %zu  Ausreisser %zu  max t-Schritt %.3f (%s)%s\n",
+            std::printf("CLIP %-60s %-5s additiv %d  Keys %4zu  fps %4.0f  Kanaele %3zu  NaN %zu  Norm %.4f  Zeitfehler %zu  Ausreisser %zu  Blockgrenze %.2f  max t-Schritt %.3f (%s)%s\n",
                         (ce.anzeige.empty() ? ce.name : ce.anzeige).c_str(), c.codec.c_str(), c.additiv ? 1 : 0, keys, ce.fps, c.kanaele.size(), nan,
-                        normFehler, zeitFehler, ausreisser, tSprung, tSpur.c_str(), schlecht ? "  <-- VERDAECHTIG" : "");
+                        normFehler, zeitFehler, ausreisser, grenze, tSprung, tSpur.c_str(), schlecht ? "  <-- VERDAECHTIG" : "");
             std::printf("     Namen: %zu von %zu Kanaelen unbenannt, benannt %zu/%zu DofIds, Rig %s (%zu Treffer), Bank %s\n", unbenannt, c.kanaele.size(),
                         c.benannt, c.dofIds, c.rig.c_str(), c.rigTreffer, q.BankName(ce.bank).c_str());
             if (unbenannt > 0) {
