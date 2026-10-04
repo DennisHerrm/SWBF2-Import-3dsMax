@@ -26,7 +26,7 @@
 #include <istdplug.h>
 
 #define SWBF2IMPORT_VERSION     1400
-#define SWBF2IMPORT_VERSION_STR  _T("1.43.0")
+#define SWBF2IMPORT_VERSION_STR  _T("1.44.0")
 
 // Zwei eigene Klassen-IDs. Im Ernstfall gehoeren die aus
 // gencid.exe; diese hier sind einmalig gezogen und werden nicht
