@@ -169,3 +169,14 @@ plugins:
   (`WalkFwdReady`, `WalkFwdLeft45Ready`, `WalkBwdReadyLeft45`,
   `Loco_Combat_Stand_*` and others). Before, these were only listed under
   "All characters".
+- Version 1.46.0 fixes the key times of VBR clips. The `KeyTimeSize` bytes are
+  alternating run lengths in frames: frames with a key, then frames without a
+  key, and so on. Before, each byte was read as the gap to the next key, so
+  the keys of 1,152 VBR clips sat on the wrong frames (276 of them ran past
+  the clip end). Checked over every VBR clip with key times: the bytes at even
+  positions add up to `NumKeys`, all bytes add up to `EndFrame` + 1. Rotation
+  tracks with no data (all values near 0) are dropped, so those bones keep
+  their rest pose. Two clips with a constant palette larger than 256 values
+  that decoded to broken rotations are now reported as not decodable. In the
+  animation window, Iden no longer takes the vehicle path of the Trident
+  droid ("tr-iden-t") and gets the clips the game assigns to her again.

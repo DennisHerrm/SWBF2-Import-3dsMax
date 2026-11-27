@@ -286,14 +286,26 @@ bool VbrLesen(const fbgd::Datensatz& ds, const std::vector<std::string>& namen, 
     const size_t kopf = kt + static_cast<size_t>(konst) * schritt + karte + static_cast<size_t>(anim) * 4 + vo + fo;
     if (kopf + summeBloecke != d.size()) { fehler = "VBR-Aufteilung passt nicht (" + std::to_string(kopf + summeBloecke) + " statt " + std::to_string(d.size()) + " Byte)"; return false; }
     if (static_cast<int>(bloecke.size()) < (keys + 7) / 8 && anim > 0) { fehler = "VBR: zu wenige Bloecke"; return false; }
-    // Keyzeiten: Abstaende in Bildern (fehlen sie, liegt jeder Key auf einem Bild)
+    // Keyzeiten (fehlen sie, liegt jeder Key auf einem Bild).
+    // 1.46.0: Die KeyTimeSize Bytes sind ABWECHSELNDE LAUFLAENGEN in Bildern -
+    // erst Bilder mit Key, dann Bilder ohne Key, dann wieder mit Key ... Bisher
+    // als Abstand je Key gelesen. Gemessen 27.11.2026 an allen 1 152 VBR-Clips
+    // mit Keyzeiten (10 568 haben keine): die Bytes an gerader Stelle ergeben
+    // genau NumKeys, alle zusammen EndFrame + 1, die Zahl der Laeufe ist
+    // ungerade (der letzte Key liegt auf EndFrame) - ohne eine Ausnahme. Mit der
+    // alten Lesart lag die Zeitachse bei 276 Clips hinter dem Clipende
+    // (C_ATTE_Battle_Beyond_02: Bild 945 statt 660), bei den anderen zu kurz.
     size_t p = 0;
     aus.zeiten.clear();
     {
-        double t = 0;
-        aus.zeiten.push_back(0.0f);
-        for (size_t i = 0; i < kt && static_cast<int>(aus.zeiten.size()) < keys; ++i) { t += d[p + i]; aus.zeiten.push_back(static_cast<float>(t)); }
-        while (static_cast<int>(aus.zeiten.size()) < keys) aus.zeiten.push_back(aus.zeiten.back() + 1.0f);
+        int bild = 0;
+        for (size_t i = 0; i < kt && static_cast<int>(aus.zeiten.size()) < keys; ++i) {
+            const int lauf = d[p + i];
+            if (i % 2 == 0)
+                for (int k = 0; k < lauf && static_cast<int>(aus.zeiten.size()) < keys; ++k) aus.zeiten.push_back(static_cast<float>(bild + k));
+            bild += lauf;
+        }
+        while (static_cast<int>(aus.zeiten.size()) < keys) aus.zeiten.push_back(aus.zeiten.empty() ? 0.0f : aus.zeiten.back() + 1.0f);
     }
     p += kt;
     std::vector<size_t> palIdx(static_cast<size_t>(konst));
@@ -493,6 +505,42 @@ bool VbrLesen(const fbgd::Datensatz& ds, const std::vector<std::string>& namen, 
     if (naq != aq || nav != av || naf != af || ncq != cq || ncv != cv || ncf != cf) {
         fehler = "VBR: Kanalarten aus den Namen passen nicht zu den Zaehlern";
         return false;
+    }
+    // 1.46.0: Drehungen pruefen (gemessen 27.11.2026 an allen 11 684 VBR-Clips).
+    //  * Eine Drehspur, die in JEDEM Key fast 0 ist (|q| < 0,1), traegt keine
+    //    Daten: alle Koeffizienten 0, der Wert ist die Mitte des Bereichs. So
+    //    in 4 Clips (AI_Officer_Rebel_Investigate_Inspx_06..09, nur Waffen-
+    //    Nebenknochen Wep_Belt*, Wep_Mag_Ammo, Wep_Grenade2, Wep_Bipod*). In Max
+    //    wurde daraus die Einheitsdrehung statt der Ruhelage - die Spur faellt
+    //    weg, der Knochen bleibt in der Ruhelage.
+    //  * Weicht sonst eine Drehung um mehr als 0,05 von der Laenge 1 ab, ist der
+    //    Clip falsch gelesen: so nur in 2 Clips, beide mit Palette > 256
+    //    (AI_Heavy_Trooper_Investigate_Idle 349, ActionStations_Jakku2_..._Loop_02
+    //    345) - der Aufbau, der sonst an Indizes hinter der Palette auffaellt.
+    //    Ehrlich melden statt verbogen zeigen. Alle anderen VBR-Clips: 0.
+    {
+        std::vector<Kanal> behalten;
+        behalten.reserve(aus.kanaele.size());
+        for (Kanal& kn : aus.kanaele) {
+            if (kn.art == 'q' && kn.komponenten == 4 && kn.werte.size() >= 4) {
+                size_t leer = 0, schief = 0;
+                const size_t n = kn.werte.size() / 4;
+                for (size_t i = 0; i < n; ++i) {
+                    const float* x = &kn.werte[i * 4];
+                    const double l = std::sqrt(double(x[0]) * x[0] + double(x[1]) * x[1] + double(x[2]) * x[2] + double(x[3]) * x[3]);
+                    if (l < 0.1) ++leer;
+                    else if (std::fabs(l - 1.0) > 0.05) ++schief;
+                }
+                if (leer == n) continue;                     // Spur ohne Daten: Ruhelage
+                if (leer > 0 || schief > 0) {
+                    fehler = "VBR: Drehung nicht normiert in " + kn.name + " (" + std::to_string(leer + schief) + " von " + std::to_string(n) +
+                             " Keys)" + (palGroesse > 256 ? " - Aufbau mit grosser Palette noch nicht bekannt" : "");
+                    return false;
+                }
+            }
+            behalten.push_back(std::move(kn));
+        }
+        aus.kanaele = std::move(behalten);
     }
     return true;
 }

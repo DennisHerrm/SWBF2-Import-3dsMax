@@ -368,6 +368,29 @@ void BaueClipBones() {
     SetCursor(LoadCursor(nullptr, IDC_ARROW));
 }
 
+// 1.46.0: Liegt das Skelett im Ordner der Figur? Ein Pfadteil muss (ohne
+// - _ und Leerzeichen) genau der Figurname sein. SucheSkelett sucht den Namen
+// irgendwo im Pfad - bei Iden traf das die Trident-Drohne
+// (characters/npc/vehicles/tr-iden-t/...). Die Ruhelage prueft das seit 1.42.0
+// (nur echte Fahrzeuge), die Clipliste nicht: Iden nahm den Fahrzeugweg, fand
+// ueber die 34 Trident-Knochen 0 Clips, und die Zuordnung des Spiels wurde
+// uebersprungen - ihr fehlten 29 Clips (Gewehr-Spruenge, Fallen, Stehen,
+// Jetpack-Ausstiege). Gemessen 27.11.2026: alle anderen Treffer (Astromech,
+// Grievous, Yoda und die 8 Fahrzeuge) liegen im eigenen Ordner.
+bool SkelettImOrdner(const std::string& skelett, const std::string& figur) {
+    auto dicht = [](const std::string& x) { std::string r; for (char c : x) if (c != '-' && c != '_' && c != ' ') r += c; return r; };
+    const std::string ziel = dicht(Klein(figur)), s = Klein(skelett);
+    if (ziel.empty()) return false;
+    size_t a = 0;
+    while (a <= s.size()) {
+        size_t e = s.find('/', a);
+        if (e == std::string::npos) e = s.size();
+        if (dicht(s.substr(a, e - a)) == ziel) return true;
+        a = e + 1;
+    }
+    return false;
+}
+
 const std::set<std::string>& SpielClips(const std::string& figur) {
     AnimDaten* d = g_daten;
     const auto da = d->spielClips.find(figur);
@@ -380,7 +403,7 @@ const std::set<std::string>& SpielClips(const std::string& figur) {
         // Das eigene Skelett des Fahrzeugs suchen; gibt es keins, ist es keine
         // Fahrzeugfigur und es geht unten normal weiter.
         const std::string skelett = fbfahrzeug::SucheSkelett(d->spiel, d->idx, figur);
-        if (!skelett.empty()) {
+        if (!skelett.empty() && (d->fahrzeugNamen.count(figur) != 0 || SkelettImOrdner(skelett, figur))) {
             std::set<std::string> eigene;
             for (const auto& kv : d->idx.ebx) {
                 if (kv.first != skelett) continue;
