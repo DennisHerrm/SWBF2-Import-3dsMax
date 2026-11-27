@@ -160,3 +160,12 @@ plugins:
   `castool --clipcheck` over all clips (the new "Blockgrenze" value is the
   step at block boundaries divided by the step inside a block, 1 = smooth)
   and in 3ds Max 2027.
+- Version 1.45.0 fixes the soldier class entries in the animation window.
+  "Soldier: Heavy" now lists its own LMG walk and run clips (`C_HM_Lmg_*`);
+  before, it only showed the HeavyBlaster clips. "Soldier: Specialist" now
+  lists the rifle walk and run clips: the game has no separate body set for
+  sniper rifles, only hand poses per weapon. Assault and Specialist also list
+  the rifle walk and run clips that have no class word in their names
+  (`WalkFwdReady`, `WalkFwdLeft45Ready`, `WalkBwdReadyLeft45`,
+  `Loco_Combat_Stand_*` and others). Before, these were only listed under
+  "All characters".

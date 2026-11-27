@@ -133,15 +133,39 @@ bool AmWortanfang(const std::string& text, const std::string& wort) {
 // officer 1264, assault 100, specialist 28, trooper 921, droid 738 Clips).
 // Ein Profil passt, wenn EINES seiner Woerter im Clip vorkommt. Mit dem
 // Suchfeld laesst sich weiter eingrenzen (z. B. "imperial", "rebel").
+//
+// 1.45.0 (gemessen 27.11.2026 am Spiel, 82 229 Clips):
+//  * Heavy: seine Lauf- und Aktionsclips heissen C_HM_Lmg_... / A_HM_Lmg_...
+//    (Waffenklasse LMG) - mit nur "heavy" fehlten alle 13 Geh-/Renn-Clips,
+//    gezeigt wurden nur die HeavyBlaster-Clips der Sentry-Faehigkeit.
+//  * Specialist: es gibt keinen eigenen Koerpersatz fuer Scharfschuetzen-
+//    gewehre, nur Handhaltungen (P_HM_NT242_NoAddon_StandPose ...); der
+//    Specialist laeuft mit den Gewehr-Gaengen. Vorher: 0 Geh-Clips, 253 von
+//    285 Eintraegen waren Sprachclips (SW02_VO_..._Sniper...).
+//  * Gewehr-Gaenge OHNE Klassenwort im Namen (Anschlag-Fassung WalkFwdReady,
+//    WalkFwdLeft45Ready, WalkBwdReadyLeft45 ..., Loco_Combat_Stand_...):
+//    Menschen-Knochenlaengen (Spine1 0,116 statt 0,294 beim B1), Armhaltung
+//    12-20 Grad neben Rifle_WalkFwd, 54-65 Grad neben Pistole/ohne Waffe.
+//    Standen bisher nur unter "All characters". Genaue Namen statt
+//    "crouchrunfwd" - das traefe auch Add_HM_Pistol_/Add_HM_AT_-Posen.
 struct Profil { const char* schluessel; const char* anzeige; std::vector<const char*> woerter; const char* klassenwort; };
 const std::vector<Profil>& Profile() {
-    static const std::vector<Profil> p = {
-        { "#assault",    "Soldier: Assault (rifle)",      { "assault", "rifle" },       "assault" },
-        { "#heavy",      "Soldier: Heavy",                { "heavy" },                  "heavy" },
-        { "#officer",    "Soldier: Officer (pistol)",     { "officer", "pistol" },      "officer" },
-        { "#specialist", "Soldier: Specialist (sniper)",  { "specialist", "sniper" },   "specialist" },
-        { "#droid",      "Droid soldier (B1/B2)",         { "droid", "b1_", "b2_" },    "droid" },
-    };
+    static const std::vector<Profil> p = [] {
+        const std::vector<const char*> gewehrGaenge = {
+            "walkfwdready", "walkbwdready", "walkreadyleft", "walkrightready", "45ready", "runfwdreadyslow",
+            "crouchrunfwdleft45", "crouchrunfwdright45", "loco_stand_sprint", "loco_combat_stand", "loco_ready_stand" };
+        auto mitGewehrGaengen = [&](std::vector<const char*> w) {
+            w.insert(w.end(), gewehrGaenge.begin(), gewehrGaenge.end());
+            return w;
+        };
+        return std::vector<Profil>{
+            { "#assault",    "Soldier: Assault (rifle)",      mitGewehrGaengen({ "assault", "rifle" }),                "assault" },
+            { "#heavy",      "Soldier: Heavy",                { "heavy", "lmg" },                                     "heavy" },
+            { "#officer",    "Soldier: Officer (pistol)",     { "officer", "pistol" },                                "officer" },
+            { "#specialist", "Soldier: Specialist (sniper)",  mitGewehrGaengen({ "specialist", "sniper", "rifle" }),  "specialist" },
+            { "#droid",      "Droid soldier (B1/B2)",         { "droid", "b1_", "b2_" },                              "droid" },
+        };
+    }();
     return p;
 }
 
